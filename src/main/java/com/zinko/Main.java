@@ -7,6 +7,6 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppContext.class);
         CommandListener commandListener = context.getBean(CommandListener.class);
-        commandListener.ListenCommand();
+        commandListener.listenCommand();
     }
 }

@@ -21,17 +21,13 @@ public class CommandListener {
     private final CustomMessageSource messageSource;
 
 
-    public void ListenCommand() {
+    public void listenCommand() {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println(CHOSE_LANGUAGE_MESSAGE);
             String lang = scanner.nextLine();
-            if (lang.equals("en")) {
-                messageSource.setLocale(new Locale("en"));
-                break;
-            }
-            if (lang.equals("ru")) {
-                messageSource.setLocale(new Locale("ru"));
+            if (lang.equals("en") || lang.equals("ru")) {
+                messageSource.setLocale(new Locale(lang));
                 break;
             }
         }

@@ -23,7 +23,7 @@ import java.util.Optional;
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
-    private final static String CSV_FILE = "src/main/resources/books.csv";
+    private static final String CSV_FILE = "src/main/resources/books.csv";
     private final ObjectWriter bookWriter;
     private final ObjectReader bookReader;
     private final IdGenerator idGenerator;
