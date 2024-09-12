@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.zinko.data.BookRepository;
 import com.zinko.data.IdGenerator;
 import com.zinko.model.Book;
+import com.zinko.service.CustomMessageSource;
 import com.zinko.service.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+
 @Repository
 @RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
@@ -25,6 +27,7 @@ public class BookRepositoryImpl implements BookRepository {
     private final ObjectWriter bookWriter;
     private final ObjectReader bookReader;
     private final IdGenerator idGenerator;
+    private final CustomMessageSource messageSource;
 
     @Override
     public Book create(Book book) throws IOException {
@@ -61,7 +64,7 @@ public class BookRepositoryImpl implements BookRepository {
         Book updated = books.stream()
                 .filter(b -> b.getId().equals(book.getId()))
                 .findFirst()
-                .orElseThrow(() -> new NotFoundException("Not found book with id " + book.getId()));
+                .orElseThrow(() -> new NotFoundException(messageSource.getMessage("not.found.book.with.id.message", new Object[]{book.getId()})));
         int index = books.indexOf(updated);
         books.set(index, book);
         writeBooks(books);
