@@ -48,7 +48,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto get(Long id) {
+    public BookDto getById(Long id) {
         try {
             Optional<Book> optionalBook = bookRepository.getById(id);
             Book book = optionalBook.orElseThrow(() ->
