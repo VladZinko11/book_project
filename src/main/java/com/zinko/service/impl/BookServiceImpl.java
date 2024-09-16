@@ -8,7 +8,7 @@ import com.zinko.service.CustomMessageSource;
 import com.zinko.service.dto.BookDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.exception.ServerException;
-import org.springframework.beans.factory.annotation.Qualifier;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     public static final String SERVER_ERROR = "server.error.message";
     public static final String NOT_FOUND_BOOK_WITH_ID_MESSAGE = "not.found.book.with.id.message";
@@ -25,12 +26,6 @@ public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final CustomMessageSource messageSource;
-
-    public BookServiceImpl(@Qualifier("bookRepositoryCacheableImpl") BookRepository bookRepository, BookMapper bookMapper, CustomMessageSource messageSource) {
-        this.bookRepository = bookRepository;
-        this.bookMapper = bookMapper;
-        this.messageSource = messageSource;
-    }
 
     @Override
     public BookDto create(BookDto bookDto) {
