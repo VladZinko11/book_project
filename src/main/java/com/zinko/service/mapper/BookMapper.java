@@ -1,4 +1,4 @@
-package com.zinko.service;
+package com.zinko.service.mapper;
 
 import com.zinko.model.Book;
 import com.zinko.service.dto.BookDto;
