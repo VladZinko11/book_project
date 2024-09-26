@@ -12,25 +12,25 @@ import java.util.Arrays;
 @Slf4j
 public class LoggingAspect {
 
-    @Pointcut("execution(public * com.zinko.service.impl.BookServiceImpl.*(..))")
-    private void publicMethodsFromBookService() {
+    @Pointcut("execution(public * com.zinko.service.impl.*(..))")
+    private void publicMethodsFromService() {
     }
 
 
-    @Before(value = "publicMethodsFromBookService()")
+    @Before(value = "publicMethodsFromService()")
     public void logBefore(JoinPoint joinPoint) {
         Object[] args = joinPoint.getArgs();
         String name = joinPoint.getSignature().getName();
         log.info(">> {}() - {}", name, Arrays.toString(args));
     }
 
-    @AfterReturning(value = "publicMethodsFromBookService()", returning = "result")
+    @AfterReturning(value = "publicMethodsFromService()", returning = "result")
     public void logAfter(JoinPoint joinPoint, Object result) {
         String name = joinPoint.getSignature().getName();
         log.info("<< {}() - {}", name, result);
     }
 
-    @AfterThrowing(pointcut = "publicMethodsFromBookService()", throwing = "exception")
+    @AfterThrowing(pointcut = "publicMethodsFromService()", throwing = "exception")
     public void logException(JoinPoint joinPoint, Throwable exception) {
         String name = joinPoint.getSignature().getName();
         log.error("<< {}() - {}", name, exception.getMessage());
