@@ -1,9 +1,9 @@
 package com.zinko.service.impl;
 
+import com.zinko.config.CustomMessageSource;
 import com.zinko.data.model.Book;
 import com.zinko.data.repository.BookRepository;
 import com.zinko.service.BookService;
-import com.zinko.service.CustomMessageSource;
 import com.zinko.service.dto.BookDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.mapper.BookMapper;
@@ -33,14 +33,14 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> getAll() {
-        return bookRepository.getAll().stream()
+        return bookRepository.findAll().stream()
                 .map(bookMapper::toDto)
                 .toList();
     }
 
     @Override
     public BookDto getById(Long id) {
-        Optional<Book> optionalBookDao = bookRepository.getById(id);
+        Optional<Book> optionalBookDao = bookRepository.findById(id);
         Book book = optionalBookDao.orElseThrow(() ->
                 new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{id})));
         return bookMapper.toDto(book);
@@ -48,15 +48,17 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Long id) {
-        if (!bookRepository.delete(id)) {
-            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{id}));
-        }
+        bookRepository.deleteById(id);
     }
 
     @Override
-    public void update(BookDto bookDto) {
+    public BookDto update(BookDto bookDto) {
+        if (!bookRepository.existsById(bookDto.getId())) {
+            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{bookDto.getId()}));
+        }
         Book book = bookMapper.toEntity(bookDto);
-        bookRepository.update(book);
+        Book saved = bookRepository.save(book);
+        return bookMapper.toDto(saved);
     }
 
 }

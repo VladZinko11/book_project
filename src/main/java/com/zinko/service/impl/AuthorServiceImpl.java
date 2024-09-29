@@ -1,11 +1,11 @@
 package com.zinko.service.impl;
 
+import com.zinko.config.CustomMessageSource;
 import com.zinko.data.model.Author;
 import com.zinko.data.repository.AuthorRepository;
 import com.zinko.service.AuthorService;
-import com.zinko.service.CustomMessageSource;
-import com.zinko.service.dto.AuthorCreateDto;
 import com.zinko.service.dto.AuthorDto;
+import com.zinko.service.dto.AuthorSimpleDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.mapper.AuthorMapper;
 import lombok.RequiredArgsConstructor;
@@ -26,22 +26,22 @@ public class AuthorServiceImpl implements AuthorService {
     private final CustomMessageSource messageSource;
 
     @Override
-    public AuthorDto create(AuthorCreateDto authorCreateDto) {
-        Author author = authorMapper.toEntity(authorCreateDto);
+    public AuthorDto create(AuthorSimpleDto authorDto) {
+        Author author = authorMapper.toEntity(authorDto);
         authorRepository.save(author);
         return authorMapper.toDto(author);
     }
 
     @Override
-    public List<AuthorDto> getAll() {
-        return authorRepository.getAll().stream()
-                .map(authorMapper::toDto)
+    public List<AuthorSimpleDto> getAll() {
+        return authorRepository.findAll().stream()
+                .map(authorMapper::toSimpleDto)
                 .toList();
     }
 
     @Override
     public AuthorDto getById(Long id) {
-        Optional<Author> optionalAuthorDao = authorRepository.getById(id);
+        Optional<Author> optionalAuthorDao = authorRepository.findById(id);
         Author author = optionalAuthorDao.orElseThrow(() ->
                 new NotFoundException(messageSource.getMessage(NOT_FOUND_ENTITY_WITH_ID_MESSAGE, new Object[]{id})));
         return authorMapper.toDto(author);
@@ -49,24 +49,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void delete(Long id) {
-        if (!authorRepository.delete(id)) {
-            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_ENTITY_WITH_ID_MESSAGE, new Object[]{id}));
-        }
+        authorRepository.deleteById(id);
     }
 
     @Override
-    public void update(AuthorCreateDto authorCreateDto) {
-        AuthorDto updatedAuthor = getById(authorCreateDto.getId());
-        if (authorCreateDto.getFirstName() != null) {
-            updatedAuthor.setFirstName(authorCreateDto.getFirstName());
+    public AuthorDto update(AuthorDto authorDto) {
+        if (authorRepository.existsById(authorDto.getId())) {
+            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_ENTITY_WITH_ID_MESSAGE, new Object[]{authorDto.getId()}));
         }
-        if (authorCreateDto.getLastName() != null) {
-            updatedAuthor.setLastName(authorCreateDto.getLastName());
-        }
-        if (authorCreateDto.getBiography() != null) {
-            updatedAuthor.setBiography(authorCreateDto.getBiography());
-        }
-        Author author = authorMapper.toEntity(updatedAuthor);
-        authorRepository.update(author);
+        Author author = authorMapper.toEntity(authorDto);
+        Author saved = authorRepository.save(author);
+        return authorMapper.toDto(saved);
     }
 }
