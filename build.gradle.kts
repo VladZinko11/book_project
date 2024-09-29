@@ -1,24 +1,28 @@
 plugins {
-    id("java")
+    java
+    id("org.springframework.boot") version "3.3.4"
+    id("io.spring.dependency-management") version "1.1.6"
+
 }
 
 group = "com.zinko"
 version = "1.0-SNAPSHOT"
 
+
+configurations {
+    compileOnly {
+        extendsFrom(configurations.annotationProcessor.get())
+    }
+    all {
+        exclude("org.springframework.boot", "spring-boot-starter-logging")
+    }
+}
+
 repositories {
     mavenCentral()
 }
-val junitVersion = "5.9.1"
-val jacksonVersion = "2.17.2"
-val lombokVersion = "1.18.34"
-val springVersion = "6.1.13"
-val mapstructVersion = "1.5.5.Final"
-val slf4jVersion = "2.0.16"
-val log4j2Version = "2.24.0"
-val aspectjVersion = "1.9.22.1"
+val mapstructVersion = "1.6.2"
 val liquibaseVersion = "4.29.2"
-val postgresqlVersion = "42.7.4"
-val hikariVersion = "5.1.0"
 val hibernateVersion = "6.6.1.Final"
 val ehcacheVersion = "3.10.8"
 
@@ -27,31 +31,24 @@ tasks.withType<JavaExec> {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:$junitVersion"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation("org.springframework:spring-context:$springVersion")
-    implementation("org.springframework:spring-core:$springVersion")
-    implementation("org.springframework:spring-aop:$springVersion")
-    implementation("org.aspectj:aspectjweaver:$aspectjVersion")
-    implementation("org.slf4j:slf4j-api:$slf4jVersion")
-    implementation("org.apache.logging.log4j:log4j-api:$log4j2Version")
-    implementation("org.apache.logging.log4j:log4j-core:$log4j2Version")
-    implementation("org.apache.logging.log4j:log4j-slf4j2-impl:$log4j2Version")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
-    implementation("org.postgresql:postgresql:$postgresqlVersion")
-    implementation("org.springframework:spring-jdbc:$springVersion")
-    implementation("com.zaxxer:HikariCP:$hikariVersion")
-    implementation("org.hibernate.orm:hibernate-core:$hibernateVersion")
-    implementation("org.springframework:spring-orm:$springVersion")
-    implementation("org.ehcache:ehcache:$ehcacheVersion")
     implementation("org.hibernate.orm:hibernate-jcache:$hibernateVersion")
-    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    implementation("org.ehcache:ehcache:$ehcacheVersion")
+    runtimeOnly("org.postgresql:postgresql")
+    compileOnly("org.projectlombok:lombok")
     compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
-    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
-
 }
 
-tasks.test {
+tasks.withType<Test> {
     useJUnitPlatform()
 }
