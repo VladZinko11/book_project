@@ -15,7 +15,7 @@ public class BookDto implements Serializable {
     private String title;
     private String description;
     private LocalDate publicationDate;
-    private AuthorDto author;
-    private SeriesDto series;
+    private AuthorSimpleDto author;
+    private SeriesSimpleDto series;
     private List<GenreDto> genres;
 }

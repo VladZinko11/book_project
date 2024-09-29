@@ -11,6 +11,6 @@ import java.io.Serializable;
 public class SeriesCreateDto implements Serializable {
     Long id;
     String title;
-    AuthorDto author;
+    AuthorSimpleDto author;
     String description;
 }
