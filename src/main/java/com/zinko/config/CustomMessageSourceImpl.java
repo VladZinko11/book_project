@@ -1,6 +1,5 @@
-package com.zinko.service.impl;
+package com.zinko.config;
 
-import com.zinko.service.CustomMessageSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;

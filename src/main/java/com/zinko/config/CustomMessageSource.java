@@ -1,4 +1,4 @@
-package com.zinko.service;
+package com.zinko.config;
 
 import java.util.Locale;
 
