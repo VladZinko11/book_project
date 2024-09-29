@@ -12,7 +12,7 @@ import java.util.Arrays;
 @Slf4j
 public class LoggingAspect {
 
-    @Pointcut("execution(public * com.zinko.service.impl.*(..))")
+    @Pointcut("execution(public * com.zinko.service.impl..*(..))")
     private void publicMethodsFromService() {
     }
 
