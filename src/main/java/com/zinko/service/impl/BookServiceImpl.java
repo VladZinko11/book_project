@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class BookServiceImpl implements BookService {
-    public static final String NOT_FOUND_BOOK_WITH_ID_MESSAGE = "not.found.entity.with.id.message";
+    public static final String NOT_FOUND_BOOK_WITH_ID_MESSAGE = "not.found.book.with.id.message";
 
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;

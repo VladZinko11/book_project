@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional
 public class SeriesServiceImpl implements SeriesService {
-    public static final String NOT_FOUND_SERIES_WITH_ID_MESSAGE = "not.found.entity.with.id.message";
+    public static final String NOT_FOUND_SERIES_WITH_ID_MESSAGE = "not.found.series.with.id.message";
 
     private final SeriesRepository seriesRepository;
     private final SeriesMapper seriesMapper;

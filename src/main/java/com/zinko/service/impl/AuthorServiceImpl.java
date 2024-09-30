@@ -19,7 +19,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class AuthorServiceImpl implements AuthorService {
-    public static final String NOT_FOUND_ENTITY_WITH_ID_MESSAGE = "not.found.entity.with.id.message";
+    public static final String NOT_FOUND_AUTHOR_WITH_ID_MESSAGE = "not.found.author.with.id.message";
 
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
@@ -43,7 +43,7 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorDto getById(Long id) {
         Optional<Author> optionalAuthorDao = authorRepository.findById(id);
         Author author = optionalAuthorDao.orElseThrow(() ->
-                new NotFoundException(messageSource.getMessage(NOT_FOUND_ENTITY_WITH_ID_MESSAGE, new Object[]{id})));
+                new NotFoundException(messageSource.getMessage(NOT_FOUND_AUTHOR_WITH_ID_MESSAGE, new Object[]{id})));
         return authorMapper.toDto(author);
     }
 
@@ -55,7 +55,7 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public AuthorDto update(AuthorDto authorDto) {
         if (authorRepository.existsById(authorDto.getId())) {
-            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_ENTITY_WITH_ID_MESSAGE, new Object[]{authorDto.getId()}));
+            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_AUTHOR_WITH_ID_MESSAGE, new Object[]{authorDto.getId()}));
         }
         Author author = authorMapper.toEntity(authorDto);
         Author saved = authorRepository.save(author);

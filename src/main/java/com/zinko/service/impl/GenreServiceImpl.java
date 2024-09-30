@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class GenreServiceImpl implements GenreService {
-    public static final String NOT_FOUND_GENRE_WITH_ID_MESSAGE = "not.found.entity.with.id.message";
+    public static final String NOT_FOUND_GENRE_WITH_ID_MESSAGE = "not.found.genre.with.id.message";
 
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
