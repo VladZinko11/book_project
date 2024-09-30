@@ -14,5 +14,5 @@ public interface SeriesService {
 
     void delete(Long id);
 
-    void update(SeriesDto seriesDto);
+    SeriesDto update(SeriesDto seriesDto);
 }

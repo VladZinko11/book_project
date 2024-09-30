@@ -8,7 +8,7 @@ import java.io.Serializable;
  * DTO for {@link com.zinko.data.model.Author}
  */
 @Data
-public class AuthorCreateDto implements Serializable {
+public class AuthorSimpleDto implements Serializable {
     private Long id;
     private String firstName;
     private String lastName;
