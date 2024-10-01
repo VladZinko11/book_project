@@ -30,7 +30,8 @@ CREATE TABLE books
     author_id        BIGINT REFERENCES authors,
     series_id        BIGINT references series,
     publication_date DATE,
-    description      VARCHAR(255)
+    description      VARCHAR(255),
+    image_id         VARCHAR(255)
 );
 
 CREATE TABLE books_genres
