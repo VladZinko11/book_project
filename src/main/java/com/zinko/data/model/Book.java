@@ -51,6 +51,9 @@ public class Book {
     @Column(name = "publication_date")
     private LocalDate publicationDate;
 
+    @Column(name = "image_id")
+    private String imageId;
+
     @Override
     public final boolean equals(Object o) {
         if (this == o) return true;
