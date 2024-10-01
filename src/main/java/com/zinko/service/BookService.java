@@ -9,7 +9,7 @@ public interface BookService {
 
     List<BookDto> getAll();
 
-    BookDto get(Long id);
+    BookDto getById(Long id);
 
     void delete(Long id);
 

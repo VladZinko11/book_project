@@ -23,8 +23,8 @@ public class GetBookCommand implements Command {
         System.out.println(messageSource.getMessage(ENTER_BOOK_ID_MESSAGE));
         try {
             Long id = Long.parseLong(scanner.nextLine());
-            BookDto bookDto = bookService.get(id);
-            System.out.printf(messageSource.getMessage(BOOK_MESSAGE, new Object[]{bookDto.getId(), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getDescription()}));
+            BookDto bookDto = bookService.getById(id);
+            System.out.println(messageSource.getMessage(BOOK_MESSAGE, new Object[]{bookDto.getId(), bookDto.getTitle(), bookDto.getAuthor(), bookDto.getDescription()}));
         } catch (NumberFormatException e) {
             System.out.println(messageSource.getMessage(NUMBER_FORMAT_EXCEPTION_FOR_ID_MESSAGE));
             handle(scanner);

@@ -40,7 +40,7 @@ public class UpdateBookCommand implements Command {
                     .description(description)
                     .build();
             bookService.update(bookDto);
-            BookDto updated = bookService.get(bookDto.getId());
+            BookDto updated = bookService.getById(bookDto.getId());
             System.out.println(messageSource.getMessage(UPDATED_BOOK_MESSAGE, new Object[]{updated.getId(), updated.getAuthor(), updated.getTitle(), updated.getDescription()}));
         } catch (
                 NumberFormatException e) {
