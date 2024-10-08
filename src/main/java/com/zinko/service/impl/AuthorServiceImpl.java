@@ -9,6 +9,8 @@ import com.zinko.service.dto.AuthorSimpleDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.mapper.AuthorMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,8 +35,9 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    public List<AuthorSimpleDto> getAll() {
-        return authorRepository.findAll().stream()
+    public List<AuthorSimpleDto> getAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").ascending());
+        return authorRepository.findAll(pageRequest).stream()
                 .map(authorMapper::toSimpleDto)
                 .toList();
     }

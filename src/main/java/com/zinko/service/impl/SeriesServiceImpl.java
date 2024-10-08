@@ -9,6 +9,8 @@ import com.zinko.service.dto.SeriesDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.mapper.SeriesMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +34,9 @@ public class SeriesServiceImpl implements SeriesService {
     }
 
     @Override
-    public List<SeriesDto> getAll() {
-        return seriesRepository.findAll().stream()
+    public List<SeriesDto> getAll(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, Sort.by("id").ascending());
+        return seriesRepository.findAll(pageRequest).stream()
                 .map(seriesMapper::toDto)
                 .toList();
     }
