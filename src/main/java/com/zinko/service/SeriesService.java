@@ -8,7 +8,7 @@ import java.util.List;
 public interface SeriesService {
     SeriesDto create(SeriesCreateDto seriesDto);
 
-    List<SeriesDto> getAll();
+    List<SeriesDto> getAll(int page, int size);
 
     SeriesDto getById(Long id);
 

@@ -9,7 +9,7 @@ public interface AuthorService {
 
     AuthorDto create(AuthorSimpleDto authorSimpleDto);
 
-    List<AuthorSimpleDto> getAll();
+    List<AuthorSimpleDto> getAll(int page, int size);
 
     AuthorDto getById(Long id);
 

@@ -8,6 +8,9 @@ import com.zinko.service.dto.BookDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.mapper.BookMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +35,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<BookDto> getAll() {
-        return bookRepository.findAll().stream()
+    public List<BookDto> getAll(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").ascending());
+        return bookRepository.findAll(pageable).stream()
                 .map(bookMapper::toDto)
                 .toList();
     }

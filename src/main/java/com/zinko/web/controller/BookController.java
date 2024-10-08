@@ -3,6 +3,7 @@ package com.zinko.web.controller;
 import com.zinko.service.BookService;
 import com.zinko.service.dto.BookDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping("/")
     public BookDto create(@RequestBody BookDto bookDto) {
         return bookService.create(bookDto);
@@ -24,15 +26,18 @@ public class BookController {
     }
 
     @GetMapping("/")
-    public List<BookDto> getAll() {
-        return bookService.getAll();
+    public List<BookDto> getAll(@RequestParam(defaultValue = "0") int page,
+                                @RequestParam(defaultValue = "10") int size) {
+        return bookService.getAll(page, size);
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PutMapping("/")
     public BookDto update(@RequestBody BookDto bookDto) {
         return bookService.update(bookDto);
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         bookService.delete(id);

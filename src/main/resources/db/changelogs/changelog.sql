@@ -3,10 +3,10 @@
 --changeset user:1
 CREATE TABLE authors
 (
-    id          BIGSERIAL PRIMARY KEY,
-    first_name  VARCHAR(255),
-    last_name VARCHAR(255),
-    biography   VARCHAR(255)
+    id         BIGSERIAL PRIMARY KEY,
+    first_name VARCHAR(255),
+    last_name  VARCHAR(255),
+    biography  VARCHAR(255)
 );
 
 CREATE TABLE genres
@@ -18,7 +18,7 @@ CREATE TABLE genres
 CREATE TABLE series
 (
     id          BIGSERIAL PRIMARY KEY,
-    title        VARCHAR(255),
+    title       VARCHAR(255),
     description VARCHAR(255),
     author_id   BIGINT REFERENCES authors
 );
@@ -38,4 +38,13 @@ CREATE TABLE books_genres
 (
     book_id  BIGINT REFERENCES books,
     genre_id BIGINT REFERENCES genres
+);
+
+CREATE TABLE users
+(
+    id       BIGSERIAL PRIMARY KEY,
+    name     VARCHAR(255),
+    email    VARCHAR(255),
+    password VARCHAR(255),
+    role VARCHAR(255) CHECK ( role IN ('ROLE_ADMIN', 'ROLE_USER') )
 );

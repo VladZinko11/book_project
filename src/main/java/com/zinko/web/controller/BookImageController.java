@@ -4,6 +4,7 @@ import com.zinko.service.BookImageService;
 import com.zinko.service.exception.ServerException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,10 +23,9 @@ public class BookImageController {
         } catch (IOException e) {
             throw new ServerException();
         }
-
-
     }
 
+    @PreAuthorize(value = "hasRole('ADMIN')")
     @PostMapping("/")
     public void upload(@PathVariable Long id, @RequestParam("image") MultipartFile file) {
         try {
