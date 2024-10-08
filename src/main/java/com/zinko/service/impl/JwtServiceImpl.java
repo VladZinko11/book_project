@@ -4,7 +4,6 @@ import com.zinko.data.model.User;
 import com.zinko.service.JwtService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +55,7 @@ public class JwtServiceImpl implements JwtService {
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
                 .expiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(SignatureAlgorithm.HS256, jwtSigningKey).compact();
+                .signWith(Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSigningKey)), Jwts.SIG.HS256).compact();
     }
 
     private <T> T extractClaim(String jwt, Function<Claims, T> claimsResolver) {
