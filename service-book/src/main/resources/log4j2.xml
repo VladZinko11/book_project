@@ -13,7 +13,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.zinko.aspect.LoggingAspect" level="debug" additivity="false">
+        <Logger name="com.zinko.servicebook.aspect.LoggingAspect" level="debug" additivity="false">
             <AppenderRef ref="FileLogger"/>
         </Logger>
         <Logger name="com.zinko" level="debug" additivity="false">
