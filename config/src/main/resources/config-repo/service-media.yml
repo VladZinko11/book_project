@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: service-media
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/book_project
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1GB
+      max-request-size: 1GB
