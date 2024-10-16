@@ -1,4 +1,4 @@
-package com.zinko.service;
+package com.zinko.servicemedia.service;
 
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;

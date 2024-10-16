@@ -1,10 +1,9 @@
-package com.zinko.web.controller;
+package com.zinko.servicemedia.web.controller;
 
-import com.zinko.service.BookImageService;
-import com.zinko.service.exception.ServerException;
+import com.zinko.servicemedia.service.BookImageService;
+import com.zinko.servicemedia.service.exception.ServerException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,11 +11,11 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/books/{id}/images")
+@RequestMapping("/api/v1/media")
 public class BookImageController {
     private final BookImageService bookImageService;
 
-    @GetMapping("/")
+    @GetMapping("books/{id}")
     public void download(@PathVariable Long id, HttpServletResponse response) {
         try {
             bookImageService.download(id, response);
@@ -25,8 +24,7 @@ public class BookImageController {
         }
     }
 
-    @PreAuthorize(value = "hasRole('ADMIN')")
-    @PostMapping("/")
+    @PostMapping("books/{id}")
     public void upload(@PathVariable Long id, @RequestParam("image") MultipartFile file) {
         try {
             bookImageService.upload(id, file);

@@ -1,4 +1,4 @@
-package com.zinko.config;
+package com.zinko.servicemedia.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
