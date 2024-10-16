@@ -1,12 +1,9 @@
-package com.zinko.web.controller;
+package com.zinko.gateway.controller;
 
-import com.zinko.config.CustomMessageSource;
-import com.zinko.service.ErrorService;
-import com.zinko.service.dto.ErrorDto;
-import com.zinko.service.dto.ValidationResultDto;
-import com.zinko.service.exception.NotFoundException;
-import com.zinko.service.exception.ServerException;
-import com.zinko.service.exception.ValidationException;
+import com.zinko.gateway.config.CustomMessageSource;
+import com.zinko.gateway.service.dto.ErrorDto;
+import com.zinko.gateway.service.exception.NotFoundException;
+import com.zinko.gateway.service.exception.ServerException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,8 +13,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import java.util.List;
-import java.util.Map;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -25,7 +20,6 @@ import java.util.Map;
 public class ErrorController {
     public static final String SERVER_ERROR_MESSAGE = "server.error.message";
     private final CustomMessageSource messageSource;
-    private final ErrorService errorService;
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -45,13 +39,6 @@ public class ErrorController {
         log.error(e.getMessage());
         return new ErrorDto("Server error",
                 messageSource.getMessage(SERVER_ERROR_MESSAGE));
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorDto error(ValidationException e) {
-        Map<String, List<String>> messages = errorService.mapErrors(e.getErrors());
-        return new ValidationResultDto(messages);
     }
 
     @ExceptionHandler

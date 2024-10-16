@@ -1,4 +1,4 @@
-package com.zinko.service.exception;
+package com.zinko.gateway.service.exception;
 
 public class BookProjectException extends RuntimeException {
 
