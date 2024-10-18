@@ -1,4 +1,5 @@
-package com.zinko.model;
+package com.zinko.data.dao;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,18 +7,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book {
+public class BookDao {
     private Long id;
     private String title;
-    private Author author;
-    private Series series;
+    private Long authorId;
+    private Long seriesId;
     private String description;
-    private List<Genre> genres;
     private LocalDate publicationDate;
 }
