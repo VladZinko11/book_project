@@ -19,6 +19,8 @@ val aspectjVersion = "1.9.22.1"
 val liquibaseVersion = "4.29.2"
 val postgresqlVersion = "42.7.4"
 val hikariVersion = "5.1.0"
+val hibernateVersion = "6.6.1.Final"
+val ehcacheVersion = "3.10.8"
 
 tasks.withType<JavaExec> {
     systemProperty("file.encoding", "UTF-8")
@@ -39,10 +41,15 @@ dependencies {
     implementation("org.postgresql:postgresql:$postgresqlVersion")
     implementation("org.springframework:spring-jdbc:$springVersion")
     implementation("com.zaxxer:HikariCP:$hikariVersion")
+    implementation("org.hibernate.orm:hibernate-core:$hibernateVersion")
+    implementation("org.springframework:spring-orm:$springVersion")
+    implementation("org.ehcache:ehcache:$ehcacheVersion")
+    implementation("org.hibernate.orm:hibernate-jcache:$hibernateVersion")
     compileOnly("org.projectlombok:lombok:$lombokVersion")
     compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
     annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
+
 }
 
 tasks.test {

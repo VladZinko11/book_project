@@ -1,13 +1,14 @@
 package com.zinko.service.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@Builder
-public class GenreDto {
+import java.io.Serializable;
+
+/**
+ * DTO for {@link com.zinko.data.model.Genre}
+ */
+@Data
+public class GenreDto implements Serializable {
     private Long id;
     private String name;
 }

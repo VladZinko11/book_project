@@ -1,6 +1,8 @@
-package com.zinko;
+package com.zinko.config;
 
 import com.zaxxer.hikari.HikariDataSource;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 import liquibase.Contexts;
 import liquibase.LabelExpression;
 import liquibase.Liquibase;
@@ -13,15 +15,17 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
 
 @Configuration
 @PropertySource("classpath:/application.properties")
-public class DBConfigurations {
+@EnableTransactionManagement
+public class PersistenceContext {
 
     @Value("${db.url}")
     private String url;
@@ -56,12 +60,12 @@ public class DBConfigurations {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-        return new JdbcTemplate(dataSource);
+    public EntityManagerFactory entityManagerFactory() {
+        return Persistence.createEntityManagerFactory("psql");
     }
 
     @Bean
-    public NamedParameterJdbcTemplate namedParameterJdbcTemplate(DataSource dataSource) {
-        return new NamedParameterJdbcTemplate(dataSource);
+    public TransactionManager transactionManager(EntityManagerFactory factory) {
+        return new JpaTransactionManager(factory);
     }
 }

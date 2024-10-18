@@ -1,11 +1,12 @@
 package com.zinko.service;
 
+import com.zinko.service.dto.SeriesCreateDto;
 import com.zinko.service.dto.SeriesDto;
 
 import java.util.List;
 
 public interface SeriesService {
-    SeriesDto create(SeriesDto seriesDto);
+    SeriesDto create(SeriesCreateDto seriesDto);
 
     List<SeriesDto> getAll();
 
