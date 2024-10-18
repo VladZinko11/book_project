@@ -1,0 +1,18 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: config
+  profiles:
+    active: native
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        enabled: true
+    config:
+      server:
+        native:
+          search-locations: classpath:/config-repo/
+        bootstrap: true
