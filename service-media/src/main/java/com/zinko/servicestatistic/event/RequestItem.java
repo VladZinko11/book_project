@@ -1,0 +1,13 @@
+package com.zinko.servicestatistic.event;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class RequestItem {
+    private String uri;
+
+}

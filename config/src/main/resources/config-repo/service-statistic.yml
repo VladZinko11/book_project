@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: service-statistic
+  datasource:
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        connection.pool_size: 20
+        jdbc.batch_size: 20
+  kafka:
+    consumer:
+      bootstrap-servers: kafka:29092
+      group-id: service-statistic
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            type:
+              mapping: event:com.zinko.servicestatistic.event.RequestItem

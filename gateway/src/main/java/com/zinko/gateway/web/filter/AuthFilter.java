@@ -1,4 +1,4 @@
-package com.zinko.gateway.filter;
+package com.zinko.gateway.web.filter;
 
 import com.zinko.gateway.service.JwtService;
 import jakarta.servlet.FilterChain;

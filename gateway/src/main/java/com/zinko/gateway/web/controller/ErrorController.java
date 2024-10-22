@@ -1,4 +1,4 @@
-package com.zinko.gateway.controller;
+package com.zinko.gateway.web.controller;
 
 import com.zinko.gateway.config.CustomMessageSource;
 import com.zinko.gateway.service.dto.ErrorDto;

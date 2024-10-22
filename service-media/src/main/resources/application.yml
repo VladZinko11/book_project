@@ -4,6 +4,9 @@ spring:
   application:
     name: service-media
   cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
     config:
       discovery:
         enabled: true
