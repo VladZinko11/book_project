@@ -9,15 +9,6 @@ group = "com.zinko"
 version = "1.0-SNAPSHOT"
 
 
-configurations {
-    compileOnly {
-        extendsFrom(configurations.annotationProcessor.get())
-    }
-    all {
-        exclude("org.springframework.boot", "spring-boot-starter-logging")
-    }
-}
-
 repositories {
     mavenCentral()
 }
@@ -29,6 +20,8 @@ tasks.withType<JavaExec> {
 dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-docker-compose")
 
 }
 

@@ -41,6 +41,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
+    implementation("org.springframework.kafka:spring-kafka")
     implementation("org.hibernate.orm:hibernate-jcache:$hibernateVersion")
     implementation("org.ehcache:ehcache:$ehcacheVersion")
     compileOnly("org.projectlombok:lombok")
