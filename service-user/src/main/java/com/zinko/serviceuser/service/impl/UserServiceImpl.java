@@ -79,10 +79,10 @@ public class UserServiceImpl implements UserService {
 
     private void emailValidation(UserAuthDto userAuthDto) {
         Optional<User> optionalUser = userRepository.findByEmail(userAuthDto.getEmail());
-        if(optionalUser.isEmpty()) {
+        if (optionalUser.isEmpty()) {
             return;
         }
-        if(!userAuthDto.getId().equals(optionalUser.get().getId())) {
+        if (!userAuthDto.getId().equals(optionalUser.get().getId())) {
             throw new BadCredentialsException(messageSource.getMessage(ENTER_VALID_EMAIL_MESSAGE));
         }
     }
