@@ -1,16 +1,18 @@
+server:
+  port: 0
 spring:
   application:
     name: service-book
   cloud:
     consul:
-      host: localhost
-      port: 8500
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
       discovery:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/book_project
-    username: postgres
-    password: root
+    url: ${POSTGRES_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -26,5 +28,10 @@ spring:
           use_second_level_cache: true
           jcache:
             config: ehcache.xml
-server:
-  port: 0
+  kafka:
+    producer:
+      bootstrap-servers: kafka:29092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    template:
+      default-topic: statistic
