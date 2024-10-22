@@ -2,9 +2,13 @@ spring:
   application:
     name: service-book
   cloud:
+    consul:
+      host: ${CONSUL_HOST}
+      port: ${CONSUL_PORT}
     config:
       discovery:
         enabled: true
         service-id: config
   config:
     import: optional:configserver:config
+
