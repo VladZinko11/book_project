@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8080
 spring:
   application:
     name: service-media
@@ -7,6 +7,9 @@ spring:
     consul:
       host: ${CONSUL_HOST}
       port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        hostname: ${SERVICE_HOST_NAME}
     config:
       discovery:
         enabled: true

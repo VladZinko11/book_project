@@ -1,5 +1,5 @@
 server:
-  port: 0
+  port: 8080
 spring:
   application:
     name: service-user
@@ -7,8 +7,10 @@ spring:
     consul:
       discovery:
         enabled: true
+        hostname: ${SERVICE_HOST_NAME}
       host: ${CONSUL_HOST}
       port: ${CONSUL_PORT}
+
     config:
       discovery:
         enabled: true
