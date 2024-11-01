@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: config
+  labels:
+    app: config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: config
+  template:
+    metadata:
+      name: config
+      labels:
+        app: config
+    spec:
+      containers:
+        - name: config
+          image: book_project-config
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CONSUL_HOST
+              value: "consul.default.svc.cluster.local"
+            - name: CONSUL_PORT
+              value: "8500"
+            - name: SERVICE_HOST_NAME
+              value: config.default.svc.cluster.local
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: config
+spec:
+  selector:
+    app: config
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      name: config

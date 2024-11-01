@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-media
+  labels:
+    app: service-media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-media
+  template:
+    metadata:
+      name: service-media
+      labels:
+        app: service-media
+    spec:
+      containers:
+        - name: service-media
+          image: book_project-service-media
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CONSUL_HOST
+              value: "consul"
+            - name: CONSUL_PORT
+              value: "8500"
+            - name: SERVICE_HOST_NAME
+              value: "service-media.default.svc.cluster.local"
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-media
+spec:
+  selector:
+    app: service-media
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: service-media
