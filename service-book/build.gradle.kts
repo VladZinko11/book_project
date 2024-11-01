@@ -26,6 +26,7 @@ val mapstructVersion = "1.6.2"
 val hibernateVersion = "6.6.1.Final"
 val ehcacheVersion = "3.10.8"
 val liquibaseVersion = "4.29.2"
+val prometheusVersion="1.13.6"
 
 repositories {
     mavenCentral()
@@ -44,6 +45,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka")
     implementation("org.hibernate.orm:hibernate-jcache:$hibernateVersion")
     implementation("org.ehcache:ehcache:$ehcacheVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     compileOnly("org.projectlombok:lombok")
     compileOnly("org.mapstruct:mapstruct:$mapstructVersion")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")

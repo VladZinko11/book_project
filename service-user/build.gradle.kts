@@ -18,6 +18,7 @@ val liquibaseVersion = "4.29.2"
 val hibernateVersion = "6.6.1.Final"
 val ehcacheVersion = "3.10.8"
 val jsonwebtokenVersion = "0.12.6"
+val prometheusVersion="1.13.6"
 
 repositories {
     mavenCentral()
@@ -50,6 +51,7 @@ dependencies {
     implementation("org.ehcache:ehcache:$ehcacheVersion")
     implementation("io.jsonwebtoken:jjwt-api:${jsonwebtokenVersion}")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
 
     runtimeOnly("org.postgresql:postgresql")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jsonwebtokenVersion}")

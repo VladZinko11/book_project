@@ -14,6 +14,7 @@ java {
 }
 
 val liquibaseVersion = "4.29.2"
+val prometheusVersion="1.13.6"
 
 configurations {
     compileOnly {
@@ -40,6 +41,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-config")
     implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
     implementation("org.liquibase:liquibase-core:$liquibaseVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
 
     compileOnly("org.projectlombok:lombok")
 
