@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: service-book
-          image: book_project-service-book
+          image: vladzinko/service-book
           imagePullPolicy: IfNotPresent
           env:
             - name: CONSUL_HOST

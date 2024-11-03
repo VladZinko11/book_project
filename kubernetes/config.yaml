@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: config
-          image: book_project-config
+          image: vladzinko/config
           imagePullPolicy: IfNotPresent
           env:
             - name: CONSUL_HOST
