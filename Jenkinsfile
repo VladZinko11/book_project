@@ -101,7 +101,7 @@ pipeline {
                     sh 'helm repo update'
                     sh 'helm repo add grafana https://grafana.github.io/helm-charts'
                     sh 'helm repo update'
-                    sh 'helm install prometheus prometheus-community/prometheus -f values.yaml'
+                    sh 'helm install prometheus prometheus-community/prometheus -f prometheus.yaml'
                     sh 'helm install grafana grafana/grafana'
                 }
             }
