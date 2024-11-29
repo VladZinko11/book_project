@@ -4,7 +4,7 @@
         <property name="pattern">%d{YYYY-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</property>
     </Properties>
     <Appenders>
-        <File name="FileLogger" fileName="logs/app.log" append="true">
+        <File name="FileLogger" fileName="service-user/logs/app.log" append="true">
             <PatternLayout pattern="${pattern}"/>
         </File>
         <Console name="ConsoleLogger" target="SYSTEM_OUT">

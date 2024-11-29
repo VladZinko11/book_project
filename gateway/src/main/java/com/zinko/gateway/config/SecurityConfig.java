@@ -1,8 +1,8 @@
 package com.zinko.gateway.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zinko.gateway.filter.AuthFilter;
 import com.zinko.gateway.service.dto.ErrorDto;
+import com.zinko.gateway.web.filter.AuthFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -67,7 +67,7 @@ public class SecurityConfig {
                         exceptionHandling.authenticationEntryPoint(authenticationEntryPoint())
                                 .accessDeniedHandler(accessDeniedHandler()))
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/v1/signing", "/api/v1/signup").permitAll()
+                        request.requestMatchers("/api/v1/signing", "/api/v1/signup", "/actuator/health").permitAll()
                                 .requestMatchers(HttpMethod.POST,
                                         patterns).hasRole(ROLE_ADMIN)
                                 .requestMatchers(HttpMethod.PUT,
