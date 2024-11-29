@@ -22,6 +22,7 @@ public class BookServiceImpl implements BookService {
     public static final String SERVER_ERROR = "server.error.message";
     public static final String NOT_FOUND_BOOK_WITH_ID_MESSAGE = "not.found.book.with.id.message";
 
+
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
     private final CustomMessageSource messageSource;
@@ -48,7 +49,7 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto get(Long id) {
+    public BookDto getById(Long id) {
         try {
             Optional<Book> optionalBook = bookRepository.getById(id);
             Book book = optionalBook.orElseThrow(() ->
