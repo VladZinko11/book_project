@@ -4,6 +4,7 @@ import com.zinko.data.BookRepository;
 import com.zinko.model.Book;
 import com.zinko.service.BookMapper;
 import com.zinko.service.BookService;
+import com.zinko.service.CustomMessageSource;
 import com.zinko.service.dto.BookDto;
 import com.zinko.service.exception.NotFoundException;
 import com.zinko.service.exception.ServerException;
@@ -18,8 +19,12 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
+    public static final String SERVER_ERROR = "server.error.message";
+    public static final String NOT_FOUND_BOOK_WITH_ID_MESSAGE = "not.found.book.with.id.message";
+
     private final BookRepository bookRepository;
     private final BookMapper bookMapper;
+    private final CustomMessageSource messageSource;
 
     @Override
     public BookDto create(BookDto bookDto) {
@@ -27,7 +32,7 @@ public class BookServiceImpl implements BookService {
         try {
             return bookMapper.toDto(bookRepository.create(book));
         } catch (IOException e) {
-            throw new ServerException("Server error");
+            throw new ServerException(messageSource.getMessage(SERVER_ERROR));
         }
     }
 
@@ -38,7 +43,7 @@ public class BookServiceImpl implements BookService {
                     .map(bookMapper::toDto)
                     .toList();
         } catch (IOException e) {
-            throw new ServerException("Server error");
+            throw new ServerException(messageSource.getMessage(SERVER_ERROR));
         }
     }
 
@@ -46,10 +51,11 @@ public class BookServiceImpl implements BookService {
     public BookDto get(Long id) {
         try {
             Optional<Book> optionalBook = bookRepository.getById(id);
-            Book book = optionalBook.orElseThrow(() -> new NotFoundException("Not found book with id: " + id));
+            Book book = optionalBook.orElseThrow(() ->
+                    new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{id})));
             return bookMapper.toDto(book);
         } catch (IOException e) {
-            throw new ServerException("Server error");
+            throw new ServerException(messageSource.getMessage(SERVER_ERROR));
         }
     }
 
@@ -57,10 +63,10 @@ public class BookServiceImpl implements BookService {
     public void delete(Long id) {
         try {
             if (!bookRepository.deleteById(id)) {
-                throw new NotFoundException("Not found book with id: " + id);
+                throw new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{id}));
             }
         } catch (IOException e) {
-            throw new ServerException("Server error");
+            throw new ServerException(messageSource.getMessage(SERVER_ERROR));
         }
     }
 
@@ -68,7 +74,8 @@ public class BookServiceImpl implements BookService {
     public void update(BookDto bookDto) {
         StringUtils.hasText(bookDto.getDescription());
         try {
-            Book book = bookRepository.getById(bookDto.getId()).orElseThrow(() -> new NotFoundException("Not found book with id" + bookDto.getId()));
+            Book book = bookRepository.getById(bookDto.getId())
+                    .orElseThrow(() -> new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_WITH_ID_MESSAGE, new Object[]{bookDto.getId()})));
             if (StringUtils.hasText(bookDto.getAuthor())) {
                 book.setAuthor(bookDto.getAuthor());
             }
@@ -80,7 +87,7 @@ public class BookServiceImpl implements BookService {
             }
             bookRepository.update(book);
         } catch (IOException e) {
-            throw new ServerException("Server error");
+            throw new ServerException(messageSource.getMessage(SERVER_ERROR));
         }
     }
 }
