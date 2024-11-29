@@ -9,6 +9,7 @@ spring:
       port: ${CONSUL_PORT}
       discovery:
         enabled: true
+        hostname: ${SERVICE_HOST_NAME}
   datasource:
     url: ${POSTGRES_URL}
     username: ${POSTGRES_USER}
@@ -33,3 +34,11 @@ jwt:
   token:
     signing:
       key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: true

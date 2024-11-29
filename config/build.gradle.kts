@@ -17,6 +17,8 @@ repositories {
     mavenCentral()
 }
 
+val prometheusVersion="1.13.6"
+
 extra["springCloudVersion"] = "2023.0.3"
 
 dependencies {
@@ -24,6 +26,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-config-server")
     implementation("org.springframework.cloud:spring-cloud-starter")
     implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

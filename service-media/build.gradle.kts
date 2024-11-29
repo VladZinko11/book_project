@@ -34,6 +34,8 @@ repositories {
 
 extra["springCloudVersion"] = "2023.0.3"
 
+val prometheusVersion="1.13.6"
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
@@ -45,6 +47,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.kafka:spring-kafka")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

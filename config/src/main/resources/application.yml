@@ -11,8 +11,17 @@ spring:
       port: ${CONSUL_PORT}
       discovery:
         enabled: true
+        hostname: ${SERVICE_HOST_NAME}
     config:
       server:
         native:
           search-locations: classpath:/config-repo/
         bootstrap: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: true

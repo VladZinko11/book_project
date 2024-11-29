@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consul
+  labels:
+    app: consul
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consul
+  template:
+    metadata:
+      name: consul
+      labels:
+        app: consul
+    spec:
+      containers:
+        - name: consul
+          image: hashicorp/consul:1.20
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8500
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consul
+spec:
+  selector:
+    app: consul
+  ports:
+    - protocol: TCP
+      port: 8500
+      targetPort: 8500
+      name: consul

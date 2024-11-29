@@ -5,10 +5,14 @@ spring:
     consul:
       host: ${CONSUL_HOST}
       port: ${CONSUL_PORT}
+      discovery:
+        enabled: true
+        hostname: ${SERVICE_HOST_NAME}
     config:
       discovery:
         enabled: true
         service-id: config
   config:
     import: optional:configserver:config
-
+server:
+  port: 8080

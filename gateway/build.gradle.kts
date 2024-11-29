@@ -27,6 +27,7 @@ repositories {
 }
 
 val jsonwebtokenVersion = "0.12.6"
+val prometheusVersion="1.13.6"
 
 extra["springCloudVersion"] = "2023.0.3"
 
@@ -42,7 +43,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("io.jsonwebtoken:jjwt-api:${jsonwebtokenVersion}")
-
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:${jsonwebtokenVersion}")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:${jsonwebtokenVersion}")
     runtimeOnly("org.postgresql:postgresql")

@@ -1,0 +1,31 @@
+scrape_configs:
+  - job_name: 'gateway'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['gateway.default.svc.cluster.local:8080']
+  - job_name: 'config'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['config.default.svc.cluster.local:8081']
+  - job_name: 'service-user'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['service-user.default.svc.cluster.local:8080']
+  - job_name: 'service-book'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['service-book.default.svc.cluster.local:8080']
+  - job_name: 'service-media'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['service-media.default.svc.cluster.local:8080']
+  - job_name: 'service-statistic'
+    scrape_interval: 5s
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['service-statistic.default.svc.cluster.local:8080']

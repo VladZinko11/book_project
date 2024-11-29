@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: service-user
+  labels:
+    app: service-user
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: service-user
+  template:
+    metadata:
+      name: service-user
+      labels:
+        app: service-user
+    spec:
+      containers:
+        - name: service-user
+          image: book_project-service-user
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: CONSUL_HOST
+              value: "consul"
+            - name: CONSUL_PORT
+              value: "8500"
+            - name: SERVICE_HOST_NAME
+              value: "service-user.default.svc.cluster.local"
+            - name: POSTGRES_URL
+              value: "jdbc:postgresql://postgres.default.svc.cluster.local:5432/book_project"
+            - name: POSTGRES_PASSWORD
+              value: "root"
+            - name: POSTGRES_USER
+              value: "postgres"
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-user
+spec:
+  selector:
+    app: service-user
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      name: service-user

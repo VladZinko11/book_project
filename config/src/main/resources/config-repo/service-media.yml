@@ -7,6 +7,7 @@ spring:
       port: ${CONSUL_PORT}
       discovery:
         enabled: true
+        hostname: ${SERVICE_HOST_NAME}
   data:
     mongodb:
       host: mongo
@@ -19,8 +20,16 @@ spring:
       max-request-size: 1GB
   kafka:
     producer:
-      bootstrap-servers: kafka:29092
+      bootstrap-servers: broker.default.svc.cluster.local:29092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     template:
       default-topic: statistic
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: true
