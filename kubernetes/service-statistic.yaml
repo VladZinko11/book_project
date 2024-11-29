@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: service-statistic
-          image: book_project-service-statistic
+          image: vladzinko/service-statistic
           imagePullPolicy: IfNotPresent
           env:
             - name: CONSUL_HOST
