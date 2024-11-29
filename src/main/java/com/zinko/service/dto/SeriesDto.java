@@ -1,16 +1,18 @@
 package com.zinko.service.dto;
 
-import com.zinko.model.Author;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@Builder
-public class SeriesDto {
+import java.io.Serializable;
+import java.util.List;
+
+/**
+ * DTO for {@link com.zinko.data.model.Series}
+ */
+@Data
+public class SeriesDto implements Serializable {
     private Long id;
     private String title;
-    private Author author;
     private String description;
+    private AuthorDto author;
+    private List<BookDto> books;
 }

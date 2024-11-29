@@ -15,7 +15,6 @@ public interface GenreService {
 
     void update(GenreDto genreDto);
 
-    void addGenreToBook(Long bookId, GenreDto genreDto);
 
     List<GenreDto> getByBookId(Long id);
 }
