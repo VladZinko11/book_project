@@ -13,8 +13,6 @@ public interface GenreService {
 
     void delete(Long id);
 
-    void update(GenreDto genreDto);
+    GenreDto update(GenreDto genreDto);
 
-
-    List<GenreDto> getByBookId(Long id);
 }

@@ -1,8 +1,8 @@
 package com.zinko.service.impl;
 
+import com.zinko.config.CustomMessageSource;
 import com.zinko.data.model.Genre;
 import com.zinko.data.repository.GenreRepository;
-import com.zinko.service.CustomMessageSource;
 import com.zinko.service.GenreService;
 import com.zinko.service.dto.GenreDto;
 import com.zinko.service.exception.NotFoundException;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional
 public class GenreServiceImpl implements GenreService {
-    public static final String NOT_FOUND_GENRE_WITH_ID_MESSAGE = "not.found.entity.with.id.message";
+    public static final String NOT_FOUND_GENRE_WITH_ID_MESSAGE = "not.found.genre.with.id.message";
 
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
@@ -33,21 +33,15 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<GenreDto> getAll() {
-        return genreRepository.getAll().stream()
+        return genreRepository.findAll().stream()
                 .map(genreMapper::toDto)
                 .toList();
     }
 
-    @Override
-    public List<GenreDto> getByBookId(Long id) {
-        return genreRepository.getByBookId(id).stream()
-                .map(genreMapper::toDto)
-                .toList();
-    }
 
     @Override
     public GenreDto getById(Long id) {
-        Optional<Genre> optionalGenreDao = genreRepository.getById(id);
+        Optional<Genre> optionalGenreDao = genreRepository.findById(id);
         Genre genre = optionalGenreDao.orElseThrow(() ->
                 new NotFoundException(messageSource.getMessage(NOT_FOUND_GENRE_WITH_ID_MESSAGE, new Object[]{id})));
         return genreMapper.toDto(genre);
@@ -55,14 +49,16 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public void delete(Long id) {
-        if (!genreRepository.delete(id)) {
-            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_GENRE_WITH_ID_MESSAGE, new Object[]{id}));
-        }
+        genreRepository.deleteById(id);
     }
 
     @Override
-    public void update(GenreDto genreDto) {
+    public GenreDto update(GenreDto genreDto) {
+        if (!genreRepository.existsById(genreDto.getId())) {
+            throw new NotFoundException(messageSource.getMessage(NOT_FOUND_GENRE_WITH_ID_MESSAGE, new Object[]{genreDto.getId()}));
+        }
         Genre genre = genreMapper.toEntity(genreDto);
-        genreRepository.update(genre);
+        Genre saved = genreRepository.save(genre);
+        return genreMapper.toDto(saved);
     }
 }

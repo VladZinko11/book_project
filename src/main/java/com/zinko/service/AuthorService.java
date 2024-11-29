@@ -1,19 +1,19 @@
 package com.zinko.service;
 
-import com.zinko.service.dto.AuthorCreateDto;
 import com.zinko.service.dto.AuthorDto;
+import com.zinko.service.dto.AuthorSimpleDto;
 
 import java.util.List;
 
 public interface AuthorService {
 
-    AuthorDto create(AuthorCreateDto authorCreateDto);
+    AuthorDto create(AuthorSimpleDto authorSimpleDto);
 
-    List<AuthorDto> getAll();
+    List<AuthorSimpleDto> getAll();
 
     AuthorDto getById(Long id);
 
     void delete(Long id);
 
-    void update(AuthorCreateDto authorCreateDto);
+    AuthorDto update(AuthorDto authorDto);
 }

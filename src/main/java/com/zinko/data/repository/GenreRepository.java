@@ -2,11 +2,8 @@ package com.zinko.data.repository;
 
 
 import com.zinko.data.model.Genre;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface GenreRepository extends CrudRepository<Long, Genre> {
-    List<Genre> getByBookId(Long bookId);
-
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 
 }
