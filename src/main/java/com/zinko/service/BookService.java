@@ -7,7 +7,7 @@ import java.util.List;
 public interface BookService {
     BookDto create(BookDto bookDto);
 
-    List<BookDto> getAll();
+    List<BookDto> getAll(int page, int size);
 
     BookDto getById(Long id);
 
