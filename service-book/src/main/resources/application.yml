@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: service-book
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config
+  config:
+    import: optional:configserver:config
