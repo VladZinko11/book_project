@@ -18,7 +18,7 @@ COPY src ./src
 
 RUN ./gradlew bootJar --no-daemon --info
 
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jre-slim
 
 RUN apt-get update && \
     apt-get install -y curl && \

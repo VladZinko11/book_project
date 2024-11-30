@@ -13,7 +13,7 @@ COPY src ./src
 
 RUN ./gradlew bootJar --no-daemon --info
 
-FROM openjdk:17-jdk-slim
+FROM openjdk:17-jre-slim
 
 WORKDIR /app
 
