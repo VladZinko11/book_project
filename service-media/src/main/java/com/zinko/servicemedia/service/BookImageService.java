@@ -9,5 +9,5 @@ public interface BookImageService {
 
     void upload(Long bookId, MultipartFile file) throws IOException;
 
-    void download(Long bookId, HttpServletResponse response) throws IOException;
+    String download(Long bookId, HttpServletResponse response) throws IOException;
 }

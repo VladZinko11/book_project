@@ -14,15 +14,12 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.gridfs.GridFsTemplate;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 @Service
 @RequiredArgsConstructor
@@ -43,11 +40,9 @@ public class BookImageServiceImpl implements BookImageService {
     }
 
     @Override
-    public void download(Long bookId, HttpServletResponse response) throws IOException {
+    public String download(Long bookId, HttpServletResponse response) throws IOException {
         GridFSFile filename = gridFsTemplate.findOne(new Query(Criteria.where("metadata.id").is(bookId)));
         if (filename != null) {
-            response.setContentType("application/octet-stream");
-            response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + URLEncoder.encode(filename.getFilename(), StandardCharsets.UTF_8).replace('+', ' ') + "\"");
 
             InputStream inputStream = gridFsTemplate.getResource(filename).getInputStream();
             byte[] buffer = new byte[8192];
@@ -56,7 +51,7 @@ public class BookImageServiceImpl implements BookImageService {
             while ((bytesRead = inputStream.read(buffer)) != -1) {
                 outputStream.write(buffer, 0, bytesRead);
             }
-            return;
+            return filename.getFilename();
         }
         throw new NotFoundException(messageSource.getMessage(NOT_FOUND_BOOK_IMAGE, new Object[]{bookId}));
     }
