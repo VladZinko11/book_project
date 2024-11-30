@@ -26,6 +26,8 @@ spec:
               value: "8500"
             - name: SERVICE_HOST_NAME
               value: "service-media.default.svc.cluster.local"
+            - name: BOOTSTRAP_SERVERS
+              value: "broker.default.svc.cluster.local:29092"
       restartPolicy: Always
 ---
 apiVersion: v1

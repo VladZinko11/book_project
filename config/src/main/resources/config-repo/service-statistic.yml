@@ -17,7 +17,7 @@ spring:
         jdbc.batch_size: 20
   kafka:
     consumer:
-      bootstrap-servers: broker.default.svc.cluster.local:29092
+      bootstrap-servers: ${BOOTSTRAP_SERVERS}
       group-id: service-statistic
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer

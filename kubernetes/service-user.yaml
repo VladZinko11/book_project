@@ -32,6 +32,8 @@ spec:
               value: "root"
             - name: POSTGRES_USER
               value: "postgres"
+            - name: BOOTSTRAP_SERVERS
+              value: "broker.default.svc.cluster.local:29092"
       restartPolicy: Always
 ---
 apiVersion: v1

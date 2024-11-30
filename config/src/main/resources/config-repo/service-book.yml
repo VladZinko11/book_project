@@ -31,7 +31,7 @@ spring:
             config: ehcache.xml
   kafka:
     producer:
-      bootstrap-servers: broker.default.svc.cluster.local:29092
+      bootstrap-servers: ${BOOTSTRAP_SERVERS}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
     template:
