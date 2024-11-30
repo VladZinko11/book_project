@@ -4,8 +4,8 @@
 CREATE TABLE users
 (
     id       BIGSERIAL PRIMARY KEY,
-    name     VARCHAR(255),
-    email    VARCHAR(255),
-    password VARCHAR(255),
-    role     VARCHAR(255) CHECK ( role IN ('ROLE_ADMIN', 'ROLE_USER') )
+    name     VARCHAR,
+    email    VARCHAR,
+    password VARCHAR,
+    role     VARCHAR CHECK ( role IN ('ROLE_ADMIN', 'ROLE_USER') )
 );
