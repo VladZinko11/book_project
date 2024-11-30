@@ -14,7 +14,7 @@ import java.util.List;
 public class AuthorController {
     private final AuthorService authorService;
 
-    @PostMapping("/")
+    @PostMapping()
     public AuthorDto create(@RequestBody AuthorSimpleDto authorDto) {
         return authorService.create(authorDto);
     }
@@ -24,13 +24,13 @@ public class AuthorController {
         return authorService.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public List<AuthorSimpleDto> getAll(@RequestParam(defaultValue = "0") int page,
                                         @RequestParam(defaultValue = "10") int size) {
         return authorService.getAll(page, size);
     }
 
-    @PutMapping("/")
+    @PutMapping()
     public AuthorDto update(@RequestBody AuthorDto authorDto) {
         return authorService.update(authorDto);
     }

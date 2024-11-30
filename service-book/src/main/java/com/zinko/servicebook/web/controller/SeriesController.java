@@ -14,7 +14,7 @@ import java.util.List;
 public class SeriesController {
     private final SeriesService seriesService;
 
-    @PostMapping("/")
+    @PostMapping()
     public SeriesDto create(@RequestBody SeriesCreateDto seriesCreateDto) {
         return seriesService.create(seriesCreateDto);
     }
@@ -24,13 +24,13 @@ public class SeriesController {
         return seriesService.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public List<SeriesDto> getAll(@RequestParam(defaultValue = "0") int page,
                                   @RequestParam(defaultValue = "10") int size) {
         return seriesService.getAll(page, size);
     }
 
-    @PutMapping("/")
+    @PutMapping()
     public SeriesDto update(@RequestBody SeriesDto seriesDto) {
         return seriesService.update(seriesDto);
     }

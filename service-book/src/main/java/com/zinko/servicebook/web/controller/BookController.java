@@ -13,7 +13,7 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
-    @PostMapping("/")
+    @PostMapping()
     public BookDto create(@RequestBody BookDto bookDto) {
         return bookService.create(bookDto);
     }
@@ -23,13 +23,13 @@ public class BookController {
         return bookService.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public List<BookDto> getAll(@RequestParam(defaultValue = "0") int page,
                                 @RequestParam(defaultValue = "10") int size) {
         return bookService.getAll(page, size);
     }
 
-    @PutMapping("/")
+    @PutMapping()
     public BookDto update(@RequestBody BookDto bookDto) {
         return bookService.update(bookDto);
     }

@@ -13,7 +13,7 @@ import java.util.List;
 public class GenreController {
     private final GenreService genreService;
 
-    @PostMapping("/")
+    @PostMapping()
     public GenreDto create(@RequestBody GenreDto genreDto) {
         return genreService.create(genreDto);
     }
@@ -23,12 +23,12 @@ public class GenreController {
         return genreService.getById(id);
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public List<GenreDto> getAll() {
         return genreService.getAll();
     }
 
-    @PutMapping("/")
+    @PutMapping()
     public GenreDto update(@RequestBody GenreDto genreDto) {
         return genreService.update(genreDto);
     }
