@@ -15,6 +15,9 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -46,7 +49,7 @@ public class BookIntegrationTest {
     @Test
     @Order(1)
     void testCreateBook() throws Exception {
-        String jsonBook = "{\"id\":null,\"title\":\"Effective Java\",\"author\":null,\"series\":null,\"publication_date\":null, \"description\":\"\"}";
+        String jsonBook = Files.readString(Paths.get("src/test/resources/testBook.json"));
 
         mockMvc.perform(post("/api/v1/books/")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -76,7 +79,7 @@ public class BookIntegrationTest {
     @Test
     @Order(4)
     void testUpdateBook() throws Exception {
-        String jsonBook = "{\"id\":1,\"title\":\"Effective Java2\",\"author\":null,\"series\":null,\"publication_date\":null, \"description\":\"\"}";
+        String jsonBook = Files.readString(Paths.get("src/test/resources/testUpdatedBook.json"));
 
         mockMvc.perform(put("/api/v1/books/")
                         .contentType(MediaType.APPLICATION_JSON)
